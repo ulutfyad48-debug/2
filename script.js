@@ -186,7 +186,7 @@ function showPuzzleSection() {
     const isGameTime = (hour >= 20 && hour < 23); // 8 PM to 11 PM
     
     if (!isGameTime) {
-        alert(`⏰ گیم کا وقت:\nرات 8 بجے سے رات 11 بجے تک\n\nابھی وقت: ${now.toLocaleTimeString('ur-PK', {hour: '2-digit', minute: '2-digit'})}`);
+        alert(`⏰ گیم کا وقت:\nشام 8 بجے سے رات 11 بجے تک\n\nابھی وقت: ${now.toLocaleTimeString('ur-PK', {hour: '2-digit', minute: '2-digit'})}`);
         return;
     }
     
