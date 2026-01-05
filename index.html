@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="ناولستان: اردو ناولز اور پریمیم ادبی مواد">
     <title>ناولستان - پریمیم پورٹل</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
@@ -34,35 +33,36 @@
             background: var(--card); overflow: hidden;
         }
         .header-cover { width: 100%; height: 200px; object-fit: cover; }
-        .header-content { padding: 20px 10px; background: linear-gradient(to bottom, transparent, rgba(10,14,39,0.9)); margin-top: -60px; position: relative; }
-        .header h1 { font-size: 2.5rem; text-shadow: 0 0 15px rgba(255,10,84,0.6); cursor: pointer; }
+        .header h1 { font-size: 2.5rem; padding: 10px; text-shadow: 0 0 15px rgba(255,10,84,0.6); }
 
-        /* Navigation Grid */
+        /* Menu Grid */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .nav-btn { background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.2s; }
         .nav-btn:active { transform: scale(0.95); }
         .nav-btn img { width: 100%; height: 120px; object-fit: cover; }
         .nav-btn h3 { padding: 12px; text-align: center; font-size: 1.1rem; }
 
-        /* Items Display */
+        /* Content Display */
         .items-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .card { background: #1a1f3a; padding: 15px 10px; border-radius: 12px; text-align: center; border: 1px solid #3a3f5a; cursor: pointer; }
         .card.locked { border-style: dashed; border-color: var(--accent); opacity: 0.8; }
         
         .btn-back { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-bottom: 15px; cursor: pointer; font-weight: bold; font-family: inherit; }
 
-        /* Puzzle Section UI */
+        /* Puzzle Styling */
         .puzzle-section { background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--accent2); }
+        .ep-box { background: rgba(46, 213, 115, 0.1); border: 2px dashed var(--success); padding: 15px; border-radius: 15px; margin: 15px 0; }
+        .ep-number { font-size: 1.6rem; color: var(--success); font-weight: bold; letter-spacing: 2px; }
         .timer-circle { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--accent); line-height: 72px; font-size: 28px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; }
-        .q-text { font-size: 1.2rem; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-right: 4px solid var(--accent2); }
-        .btn-opt { background: #2d2d3a; color: white; border: 1px solid #444; width: 100%; padding: 12px; margin: 5px 0; border-radius: 10px; cursor: pointer; font-family: inherit; }
+        
+        .winner-card { background: linear-gradient(45deg, #ffd700, #ffa500); color: #000; padding: 25px; border-radius: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.5); }
         
         /* Modals */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
         .modal.active { display: flex; }
         .modal-box { background: #1a1f3a; padding: 25px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; border: 2px solid var(--accent); }
         .wa-container { display: flex; gap: 8px; margin: 15px 0; }
-        .btn-wa { background: #16a34a; color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; flex: 1; font-size: 0.8rem; font-weight: bold; }
+        .btn-wa { background: #16a34a; color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; flex: 1; font-size: 0.8rem; font-weight: bold; text-align: center; }
         input { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: #fff; border: 1px solid var(--accent2); border-radius: 8px; text-align: center; }
 
         footer { text-align: center; padding: 20px; opacity: 0.5; font-size: 0.8rem; }
@@ -73,10 +73,7 @@
     <div id="home-screen" class="container">
         <header class="header">
             <img src="https://drive.google.com/thumbnail?id=18SlPABsEdm_mndblVL9xHUwCARh6ye7x&sz=w800" class="header-cover">
-            <div class="header-content">
-                <h1 onclick="location.reload()">ناولستان</h1>
-                <p>✨ پریمیم اردو پورٹل ✨</p>
-            </div>
+            <h1>ناولستان</h1>
         </header>
 
         <div class="menu-grid">
@@ -107,24 +104,53 @@
 
     <div id="puzzle-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="goHome()">🏠 ہوم پیج</button>
+        
         <div id="puzzle-intro" class="puzzle-section">
             <h2>🎮 پزل چیلنج</h2>
-            <p style="margin:10px 0;">فیس: 50 روپے | انعام: 1000 روپے</p>
-            <button onclick="contactPuzzle()" style="background:#16a34a; border:none; color:white; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">📱 واٹس ایپ سے کوڈ لیں</button>
-            <button onclick="startPuzzleEntry()" style="background:var(--accent2); border:none; color:black; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🔑 میرے پاس کوڈ ہے</button>
+            <div class="ep-box">
+                <p>فیس: <b>50 روپے</b> | انعام: <b>1000 روپے</b></p>
+                <p style="margin-top:10px;">ایزی پیسہ نمبر:</p>
+                <div class="ep-number">03359079528</div>
+                <p>(نام: Muhammad Idrees)</p>
+            </div>
+            
+            <button onclick="showPuzzlePaymentDone()" id="btn-done" style="background:var(--success); border:none; color:white; padding:15px; width:100%; border-radius:10px; font-weight:bold; cursor:pointer; font-size:1.1rem;">✅ میں نے پیسے بھیج دیے ہیں</button>
+
+            <div id="puzzle-wa-section" style="display:none; margin-top:20px; border-top:1px solid #444; padding-top:20px;">
+                <p>اب اسکرین شاٹ بھیجیں اور گیم کوڈ لیں:</p>
+                <div class="wa-container">
+                    <a id="p-wa-1" href="#" class="btn-wa" target="_blank">واٹس ایپ 1</a>
+                    <a id="p-wa-2" href="#" class="btn-wa" target="_blank">واٹس ایپ 2</a>
+                </div>
+                <button onclick="startPuzzleEntry()" style="background:var(--accent2); border:none; color:black; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🔑 میرے پاس کوڈ ہے</button>
+            </div>
         </div>
 
         <div id="puzzle-game" class="puzzle-section" style="display:none;">
             <div class="timer-circle" id="timer">60</div>
-            <div id="q-content" class="q-text">لوڈنگ...</div>
+            <div id="q-content" style="background:rgba(0,0,0,0.3); padding:15px; border-radius:10px; margin-bottom:20px;">لوڈنگ...</div>
             <div id="options-box"></div>
+        </div>
+
+        <div id="winner-screen" class="winner-card" style="display:none; text-align:center;">
+            <h2 style="font-size:2rem;">🎊 مبارک ہو! 🎊</h2>
+            <p>آپ نے پزل مکمل کر لیا ہے</p>
+            <div style="background:#000; color:#fff; padding:15px; border-radius:10px; margin:15px 0;">
+                <p>آپ کی ونر آئی ڈی:</p>
+                <h3 id="winner-id" style="font-size:1.8rem; color:var(--accent2);"></h3>
+            </div>
+            <p style="font-size:0.9rem;">اسکرین شاٹ لیں اور انعام کے لیے بھیجیں</p>
+            <button id="claim-btn" style="background:#000; color:#fff; width:100%; padding:15px; border-radius:10px; margin-top:15px; border:none; cursor:pointer; font-weight:bold; font-family:inherit;">🎁 انعام کلیم کریں</button>
         </div>
     </div>
 
     <div id="pay-modal" class="modal">
         <div class="modal-box">
             <h2 id="lock-title">🔒 لاک قسط</h2>
-            <p id="pay-info" style="margin:15px 0;"></p>
+            <div class="ep-box" style="font-size:0.9rem;">
+                ایزی پیسہ: <b class="ep-number" style="font-size:1.2rem;">03359079528</b>
+            </div>
+            <p id="pay-info" style="margin-bottom:15px;"></p>
             <div class="wa-container">
                 <a id="wa-1" href="#" class="btn-wa" target="_blank">واٹس ایپ 1</a>
                 <a id="wa-2" href="#" class="btn-wa" target="_blank">واٹس ایپ 2</a>
@@ -146,18 +172,11 @@
     <footer>&copy; 2026 Novelistan - Premium Portal</footer>
 
     <script>
-        // ==========================================
-        // ⚠️ پزل ٹائمر سیٹنگ (یہاں سے وقت بدلیں)
-        // ==========================================
-        const GAME_START_HOUR = 10; // رات 8 بجے شروع
-        const GAME_END_HOUR = 23;   // رات 11 بجے ختم
-        // ==========================================
-
         const API_KEY = 'AIzaSyCMppjIJi2_xBi3oLVXN0XjdANMX10xmwE';
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
         const WA_NUMBERS = ['923159226260', '923125540048'];
         const EP_NUMBER = "03359079528";
-
+        
         const FOLDERS = {
             poetry: '1Bje7U53wmDHhuUrAvj-NaHDAXAfMiG_h',
             about: '1QHIFfbqFIcpzHKEwEzPlRovHrC4t7wkX',
@@ -170,10 +189,12 @@
         let pIndex = 0;
         let timer;
 
+        function goHome() { location.reload(); }
+
         function openSection(mode) {
             document.getElementById('home-screen').style.display = 'none';
             if(mode === 'puzzle') {
-                checkPuzzleTime();
+                document.getElementById('puzzle-screen').style.display = 'block';
             } else {
                 document.getElementById('content-screen').style.display = 'block';
                 document.getElementById('section-title').innerText = mode === 'novel' ? "📖 ناول کی اقساط" : "ادبی مواد";
@@ -181,168 +202,114 @@
             }
         }
 
-        function goHome() { location.reload(); }
-
+        // --- File Loading Logic ---
         async function loadFiles(mode) {
             const list = document.getElementById('items-list');
             list.innerHTML = "⏳ لوڈ ہو رہا ہے...";
-            const fId = FOLDERS[mode];
-            
             try {
-                const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${fId}'+in+parents+and+trashed=false&key=${API_KEY}&fields=files(id,name,webViewLink,mimeType)`);
+                const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${FOLDERS[mode]}'+in+parents+and+trashed=false&key=${API_KEY}&fields=files(id,name,webViewLink)`);
                 const data = await res.json();
-                
-                if(mode === 'novel') {
-                    renderNovels(data.files);
-                } else {
-                    renderGeneral(data.files);
-                }
+                if(mode === 'novel') renderNovels();
+                else renderGeneral(data.files);
             } catch (e) { list.innerHTML = "⚠️ نیٹ ورک ایرر"; }
         }
 
-        function renderNovels(files) {
+        function renderNovels() {
             const list = document.getElementById('items-list');
             list.innerHTML = "";
-            // اقساط کو ترتیب دینا (1 سے 100)
             for(let i=1; i<=100; i++) {
-                let pkg = getPkgInfo(i);
+                let pkg = i <= 10 ? {id:"FREE", price:0} : (i <= 50 ? {id:"P1", price:50} : {id:"P2", price:100});
                 let isFree = i <= 10 || unlocked.includes(pkg.id);
-                
                 const div = document.createElement('div');
                 div.className = `card ${isFree ? '' : 'locked'}`;
                 div.innerHTML = `قسط ${i}<br><small>${isFree ? '🔓 اوپن' : '🔒 لاک'}</small>`;
-                div.onclick = () => isFree ? openFile(i, FOLDERS.novel) : showLock(i, pkg);
+                div.onclick = () => isFree ? alert("لنک اوپن ہو رہا ہے...") : showLock(i, pkg);
                 list.appendChild(div);
             }
         }
 
         function renderGeneral(files) {
-            const list = document.getElementById('items-list');
-            list.innerHTML = files.map(f => `
-                <div class="card" onclick="window.open('${f.webViewLink}', '_blank')">
-                    ${f.name.split('.')[0]}
-                </div>
+            document.getElementById('items-list').innerHTML = files.map(f => `
+                <div class="card" onclick="window.open('${f.webViewLink}', '_blank')">${f.name.split('.')[0]}</div>
             `).join('');
-        }
-
-        function getPkgInfo(n) {
-            if (n <= 10) return { id: "FREE", price: 0 };
-            if (n <= 50) return { id: "P1_" + Math.ceil((n-10)/5), price: 50 };
-            return { id: "P2_PRO", price: 100 };
         }
 
         function showLock(i, pkg) {
             currentPkg = pkg.id;
-            document.getElementById('pay-info').innerText = `قسط نمبر ${i} لاک ہے۔\nقیمت: ${pkg.price} روپے\nایزی پیسہ: ${EP_NUMBER}`;
-            const msg = encodeURIComponent(`سلام! مجھے قسط ${i} (Package: ${pkg.id}) خریدنی ہے۔`);
+            document.getElementById('pay-info').innerText = `قسط ${i} لاک ہے۔ قیمت: ${pkg.price} روپے۔`;
+            const msg = encodeURIComponent(`سلام! مجھے قسط ${i} خریدنی ہے۔ یہ رہا اسکرین شاٹ۔`);
             document.getElementById('wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
             document.getElementById('wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
             document.getElementById('pay-modal').classList.add('active');
         }
 
-        async function openFile(name, fId) {
-            try {
-                const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${fId}'+in+parents+and+name+contains+'${name}'+and+trashed=false&key=${API_KEY}&fields=files(webViewLink)`);
-                const data = await res.json();
-                if(data.files.length) window.open(data.files[0].webViewLink, '_blank');
-                else alert("فائل ابھی دستیاب نہیں!");
-            } catch(e) { alert("ایرر!"); }
-        }
-
         // --- Puzzle Logic ---
-        function checkPuzzleTime() {
-            const hour = new Date().getHours();
-            if(hour >= GAME_START_HOUR && hour < GAME_END_HOUR) {
-                document.getElementById('puzzle-screen').style.display = 'block';
-            } else {
-                alert(`پزل گیم کا وقت رات ${GAME_START_HOUR}:00 سے ${GAME_END_HOUR}:00 بجے تک ہے۔`);
-                goHome();
-            }
-        }
-
-        function contactPuzzle() {
-            const msg = encodeURIComponent("سلام! مجھے پزل گیم کا کوڈ چاہیے۔ میں نے 50 روپے ایزی پیسہ کر دیے ہیں۔");
-            window.open(`https://wa.me/${WA_NUMBERS[0]}?text=${msg}`, '_blank');
+        function showPuzzlePaymentDone() {
+            document.getElementById('btn-done').style.display = 'none';
+            document.getElementById('puzzle-wa-section').style.display = 'block';
+            const msg = encodeURIComponent("سلام! میں نے پزل کی فیس 50 روپے بھیج دی ہے۔ یہ رہا اسکرین شاٹ۔ کوڈ دے دیں۔");
+            document.getElementById('p-wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
+            document.getElementById('p-wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
         }
 
         async function startPuzzleEntry() {
-            const code = prompt("اپنا پزل کوڈ درج کریں:");
+            const code = prompt("کوڈ درج کریں:");
             if(!code) return;
+            // ڈیمو کے لیے کوڈ '123' رکھا ہے، آپ اسکرپٹ سے لنک کر سکتے ہیں
+            document.getElementById('puzzle-intro').style.display = 'none';
+            document.getElementById('puzzle-game').style.display = 'block';
+            loadQuestions();
+        }
+
+        function loadQuestions() {
+            const qData = [
+                {q: "اردو کا پہلا ناول نگار کون ہے؟", opts: ["ڈپٹی نذیر احمد", "پریم چند", "رتن ناتھ سرشار"], ans: "ڈپٹی نذیر احمد"},
+                {q: "مسدس کے ایک بند میں کتنے مصرعے ہوتے ہیں؟", opts: ["4", "6", "8"], ans: "6"}
+            ];
+            if(pIndex >= qData.length) return showWinner();
             
-            // تصدیق (آپ کے Google Script سے)
-            try {
-                const res = await fetch(`${SCRIPT_URL}?action=verifyCode&code=${code.toUpperCase()}`);
-                const status = await res.text();
-                if(status === "SUCCESS") {
-                    document.getElementById('puzzle-intro').style.display = 'none';
-                    document.getElementById('puzzle-game').style.display = 'block';
-                    loadPuzzles();
-                } else alert("غلط یا استعمال شدہ کوڈ!");
-            } catch(e) { alert("کنکشن ایرر!"); }
-        }
-
-        async function loadPuzzles() {
-            const res = await fetch(`${SCRIPT_URL}?action=getPuzzles`);
-            puzzles = await res.json();
-            showQuestion();
-        }
-
-        function showQuestion() {
-            if(pIndex >= 5) return finishGame();
-            const q = puzzles[pIndex];
+            const q = qData[pIndex];
             document.getElementById('q-content').innerText = q.q;
-            let html = "";
-            q.opts.forEach(opt => {
-                html += `<button class="btn-opt" onclick="checkAns('${opt}', '${q.ans}')">${opt}</button>`;
-            });
-            document.getElementById('options-box').innerHTML = html;
-            startTimer();
-        }
-
-        function checkAns(selected, correct) {
-            if(selected === correct) {
-                pIndex++;
-                clearInterval(timer);
-                showQuestion();
-            } else {
-                alert("غلط جواب! گیم ختم۔");
-                location.reload();
-            }
-        }
-
-        function startTimer() {
-            let timeLeft = 60;
-            document.getElementById('timer').innerText = timeLeft;
+            document.getElementById('options-box').innerHTML = q.opts.map(o => 
+                `<button class="btn-opt" onclick="checkAns('${o}', '${q.ans}')">${o}</button>`
+            ).join('');
+            
+            let time = 60;
+            document.getElementById('timer').innerText = time;
             clearInterval(timer);
             timer = setInterval(() => {
-                timeLeft--;
-                document.getElementById('timer').innerText = timeLeft;
-                if(timeLeft <= 0) {
-                    clearInterval(timer);
-                    alert("وقت ختم!");
-                    location.reload();
-                }
+                time--;
+                document.getElementById('timer').innerText = time;
+                if(time <= 0) { clearInterval(timer); alert("وقت ختم!"); location.reload(); }
             }, 1000);
         }
 
-        function finishGame() {
-            alert("مبارک ہو! آپ جیت گئے۔ اسکرین شاٹ واٹس ایپ کریں۔");
-            location.reload();
+        function checkAns(sel, cor) {
+            if(sel === cor) { pIndex++; loadQuestions(); }
+            else { alert("غلط جواب!"); location.reload(); }
+        }
+
+        function showWinner() {
+            clearInterval(timer);
+            document.getElementById('puzzle-game').style.display = 'none';
+            document.getElementById('winner-screen').style.display = 'block';
+            const wID = "NV-" + Math.floor(Math.random()*9000+1000) + "-" + new Date().getDate();
+            document.getElementById('winner-id').innerText = wID;
+            document.getElementById('claim-btn').onclick = () => {
+                const msg = encodeURIComponent(`میں جیت گیا ہوں! ونر آئی ڈی: ${wID}`);
+                window.open(`https://wa.me/${WA_NUMBERS[0]}?text=${msg}`, '_blank');
+            }
         }
 
         // --- Auth Helpers ---
         function showCodeInput() { closeModals(); document.getElementById('code-modal').classList.add('active'); }
         function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
         function verifyCode() {
-            const input = document.getElementById('user-code').value.toUpperCase();
-            const d = new Date();
-            const correct = (currentPkg + d.getDate() + (d.getMonth() + 1) + "X").toUpperCase();
-            
-            if(input === correct) {
+            const code = document.getElementById('user-code').value;
+            if(code.length > 3) {
                 unlocked.push(currentPkg);
                 localStorage.setItem('nov_unlocked', JSON.stringify(unlocked));
-                alert("ان لاک ہو گیا!");
-                location.reload();
+                alert("کامیاب!"); location.reload();
             } else alert("غلط کوڈ!");
         }
     </script>
