@@ -549,3 +549,125 @@ async function showPuzzleCodeInput() {
 
     try {
         const response = await fetch(`${SCRIPT_URL}?action=verifyCode&code=${encodeURIComponent(enteredCode)}`);
+        const result = await response.text();
+
+        if (result === "SUCCESS") {
+            usedCode = enteredCode;
+            userFullName = prompt("اپنا مکمل نام درج کریں:");
+            
+            if (!userFullName || userFullName.trim() === "") {
+                alert("نام درج کرنا ضروری ہے!");
+                return;
+            }
+
+            userFullName = userFullName.trim();
+            document.getElementById('puzzle-info').style.display = 'none';
+            document.getElementById('puzzle-game').style.display = 'block';
+            await getPuzzlesFromServer();
+        } else {
+            alert("❌ یہ کوڈ غلط ہے یا پہلے ہی استعمال ہو چکا ہے!");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert("⚠️ کنکشن میں مسئلہ ہے! دوبارہ کوشش کریں۔");
+    }
+}
+
+async function getPuzzlesFromServer() {
+    try {
+        const response = await fetch(`${SCRIPT_URL}?action=getPuzzles`);
+        puzzles = await response.json();
+        
+        if (!puzzles || puzzles.length === 0) {
+            alert("سوالات لوڈ نہیں ہو سکے!");
+            return;
+        }
+        
+        displayQuestion();
+    } catch (error) {
+        console.error('Error:', error);
+        alert("سوالات لوڈ کرنے میں مسئلہ ہے!");
+    }
+}
+
+function displayQuestion() {
+    if (currentIndex >= 5) {
+        finishGame();
+        return;
+    }
+
+    if (clock) clearInterval(clock);
+
+    secondsLeft = 60;
+    const timerElement = document.getElementById('timer');
+    timerElement.innerText = secondsLeft;
+    timerElement.classList.remove('warning');
+
+    const puzzle = puzzles[currentIndex];
+    document.getElementById('q-number').innerText = `سوال ${currentIndex + 1} / 5`;
+    document.getElementById('q-content').innerText = puzzle.q;
+
+    let optionsHtml = "";
+    puzzle.opts.forEach((opt, index) => {
+        const safeOpt = opt.replace(/'/g, "\\'");
+        optionsHtml += `<button class="btn-opt" onclick="checkAnswer('${safeOpt}')">
+            ${String.fromCharCode(65 + index)}. ${opt}
+        </button>`;
+    });
+    document.getElementById('options-box').innerHTML = optionsHtml;
+
+    clock = setInterval(() => {
+        secondsLeft--;
+        timerElement.innerText = secondsLeft;
+
+        if (secondsLeft <= 10) {
+            timerElement.classList.add('warning');
+        }
+
+        if (secondsLeft <= 0) {
+            clearInterval(clock);
+            alert("⏰ وقت ختم! اگلے سوال پر جا رہے ہیں۔");
+            currentIndex++;
+            displayQuestion();
+        }
+    }, 1000);
+}
+
+function checkAnswer(selected) {
+    const correctAnswer = puzzles[currentIndex].ans;
+    
+    if (selected === correctAnswer) {
+        clearInterval(clock);
+        currentIndex++;
+        
+        if (currentIndex < 5) {
+            setTimeout(() => displayQuestion(), 500);
+        } else {
+            displayQuestion();
+        }
+    } else {
+        clearInterval(clock);
+        alert("❌ غلط جواب! آپ گیم سے باہر ہو گئے ہیں۔\n\nنیا کوڈ حاصل کر کے دوبارہ کوشش کریں۔");
+        location.reload();
+    }
+}
+
+async function finishGame() {
+    clearInterval(clock);
+    
+    document.getElementById('puzzle-game').style.display = 'none';
+    document.getElementById('puzzle-success').style.display = 'block';
+    document.getElementById('tracking-id').innerText = '⏳ محفوظ ہو رہا ہے...';
+
+    try {
+        const response = await fetch(
+            `${SCRIPT_URL}?action=saveWinner&name=${encodeURIComponent(userFullName)}&code=${encodeURIComponent(usedCode)}`
+        );
+        const trackingId = await response.text();
+        document.getElementById('tracking-id').innerText = trackingId;
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('tracking-id').innerText = `ERROR_${Date.now()}`;
+        alert("ڈیٹا محفوظ کرنے میں مسئلہ ہے! اسکرین شاٹ لیں اور ہم سے رابطہ کریں۔");
+    }
+}
