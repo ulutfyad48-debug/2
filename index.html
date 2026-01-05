@@ -51,9 +51,44 @@
         
         .btn-back { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-bottom: 15px; cursor: pointer; font-weight: bold; font-family: inherit; }
 
-        /* Puzzle Section UI */
-        .puzzle-section { background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--accent2); }
-        .timer-circle { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--accent); line-height: 72px; font-size: 28px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; }
+        /* --- Puzzle Section UI (Updated) --- */
+        .puzzle-section { 
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%); 
+            padding: 25px; 
+            border-radius: 20px; 
+            text-align: center; 
+            border: 2px solid var(--accent2);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+        }
+        .timer-box {
+            background: #000;
+            border: 3px solid var(--accent);
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px var(--accent);
+        }
+        .timer-circle { 
+            font-size: 40px; 
+            color: var(--accent); 
+            font-weight: bold; 
+            line-height: 1;
+        }
+        .timer-label { font-size: 12px; color: #fff; }
+
+        .payment-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border: 1px dashed var(--accent2);
+        }
+        
         .q-text { font-size: 1.2rem; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-right: 4px solid var(--accent2); }
         .btn-opt { background: #2d2d3a; color: white; border: 1px solid #444; width: 100%; padding: 12px; margin: 5px 0; border-radius: 10px; cursor: pointer; font-family: inherit; }
         
@@ -107,15 +142,30 @@
 
     <div id="puzzle-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="goHome()">🏠 ہوم پیج</button>
+        
         <div id="puzzle-intro" class="puzzle-section">
-            <h2>🎮 پزل چیلنج</h2>
-            <p style="margin:10px 0;">فیس: 50 روپے | انعام: 1000 روپے</p>
-            <button onclick="contactPuzzle()" style="background:#16a34a; border:none; color:white; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">📱 واٹس ایپ سے کوڈ لیں</button>
-            <button onclick="startPuzzleEntry()" style="background:var(--accent2); border:none; color:black; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🔑 میرے پاس کوڈ ہے</button>
+            <h2 style="color:var(--accent2)">🎮 پزل چیلنج</h2>
+            
+            <div class="payment-box">
+                <p>فیس: <b>50 روپے</b> | انعام: <b>1000 روپے</b></p>
+                <p style="margin-top:10px; color:var(--success);">ایزی پیسہ نمبر: <b>03359079528</b></p>
+            </div>
+
+            <p style="font-size: 0.9rem; margin-bottom: 15px;">پیمنٹ بھیج کر اسکرین شاٹ واٹس ایپ کریں اور گیم کوڈ حاصل کریں۔</p>
+            
+            <div class="wa-container">
+                <a href="https://wa.me/923159226260?text=سلام! میں نے پزل گیم کی پیمنٹ کر دی ہے، کوڈ دے دیں۔" class="btn-wa" target="_blank">واٹس ایپ 1</a>
+                <a href="https://wa.me/923125540048?text=سلام! میں نے پزل گیم کی پیمنٹ کر دی ہے، کوڈ دے دیں۔" class="btn-wa" target="_blank">واٹس ایپ 2</a>
+            </div>
+
+            <button onclick="startPuzzleEntry()" style="background:var(--accent2); border:none; color:black; padding:15px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold; font-size:1.1rem;">🔑 میرے پاس کوڈ ہے (کھیلیں)</button>
         </div>
 
         <div id="puzzle-game" class="puzzle-section" style="display:none;">
-            <div class="timer-circle" id="timer">60</div>
+            <div class="timer-box">
+                <div class="timer-circle" id="timer">60</div>
+                <div class="timer-label">سیکنڈ باقی</div>
+            </div>
             <div id="q-content" class="q-text">لوڈنگ...</div>
             <div id="options-box"></div>
         </div>
@@ -147,10 +197,10 @@
 
     <script>
         // ==========================================
-        // ⚠️ پزل ٹائمر سیٹنگ (یہاں سے وقت بدلیں)
+        // ⚠️ پزل ٹائمر سیٹنگ (صبح 11 سے شام 11)
         // ==========================================
-        const GAME_START_HOUR = 10; // رات 8 بجے شروع
-        const GAME_END_HOUR = 23;   // رات 11 بجے ختم
+        const GAME_START_HOUR = 11; // صبح 11 بجے
+        const GAME_END_HOUR = 23;   // رات 11 بجے
         // ==========================================
 
         const API_KEY = 'AIzaSyCMppjIJi2_xBi3oLVXN0XjdANMX10xmwE';
@@ -203,11 +253,9 @@
         function renderNovels(files) {
             const list = document.getElementById('items-list');
             list.innerHTML = "";
-            // اقساط کو ترتیب دینا (1 سے 100)
             for(let i=1; i<=100; i++) {
                 let pkg = getPkgInfo(i);
                 let isFree = i <= 10 || unlocked.includes(pkg.id);
-                
                 const div = document.createElement('div');
                 div.className = `card ${isFree ? '' : 'locked'}`;
                 div.innerHTML = `قسط ${i}<br><small>${isFree ? '🔓 اوپن' : '🔒 لاک'}</small>`;
@@ -233,7 +281,7 @@
 
         function showLock(i, pkg) {
             currentPkg = pkg.id;
-            document.getElementById('pay-info').innerText = `قسط نمبر ${i} لاک ہے۔\nقیمت: ${pkg.price} روپے\nایزی پیسہ: ${EP_NUMBER}`;
+            document.getElementById('pay-info').innerHTML = `قسط نمبر ${i} لاک ہے۔<br>قیمت: ${pkg.price} روپے<br>ایزی پیسہ: <b>${EP_NUMBER}</b>`;
             const msg = encodeURIComponent(`سلام! مجھے قسط ${i} (Package: ${pkg.id}) خریدنی ہے۔`);
             document.getElementById('wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
             document.getElementById('wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
@@ -255,21 +303,15 @@
             if(hour >= GAME_START_HOUR && hour < GAME_END_HOUR) {
                 document.getElementById('puzzle-screen').style.display = 'block';
             } else {
-                alert(`پزل گیم کا وقت رات ${GAME_START_HOUR}:00 سے ${GAME_END_HOUR}:00 بجے تک ہے۔`);
+                alert(`پزل گیم کا وقت صبح ${GAME_START_HOUR}:00 سے رات ${GAME_END_HOUR}:00 بجے تک ہے۔`);
                 goHome();
             }
-        }
-
-        function contactPuzzle() {
-            const msg = encodeURIComponent("سلام! مجھے پزل گیم کا کوڈ چاہیے۔ میں نے 50 روپے ایزی پیسہ کر دیے ہیں۔");
-            window.open(`https://wa.me/${WA_NUMBERS[0]}?text=${msg}`, '_blank');
         }
 
         async function startPuzzleEntry() {
             const code = prompt("اپنا پزل کوڈ درج کریں:");
             if(!code) return;
             
-            // تصدیق (آپ کے Google Script سے)
             try {
                 const res = await fetch(`${SCRIPT_URL}?action=verifyCode&code=${code.toUpperCase()}`);
                 const status = await res.text();
@@ -326,18 +368,16 @@
         }
 
         function finishGame() {
-            alert("مبارک ہو! آپ جیت گئے۔ اسکرین شاٹ واٹس ایپ کریں۔");
+            alert("مبارک ہو! آپ جیت گئے۔ اپنا نام اور ٹریکنگ آئی ڈی نوٹ کر لیں اور اسکرین شاٹ واٹس ایپ کریں۔");
             location.reload();
         }
 
-        // --- Auth Helpers ---
         function showCodeInput() { closeModals(); document.getElementById('code-modal').classList.add('active'); }
         function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
         function verifyCode() {
             const input = document.getElementById('user-code').value.toUpperCase();
             const d = new Date();
             const correct = (currentPkg + d.getDate() + (d.getMonth() + 1) + "X").toUpperCase();
-            
             if(input === correct) {
                 unlocked.push(currentPkg);
                 localStorage.setItem('nov_unlocked', JSON.stringify(unlocked));
