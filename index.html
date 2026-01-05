@@ -9,61 +9,36 @@
     
     <style>
         :root { 
-            --bg: #0a0e27; 
-            --card: #1a1f3a; 
-            --accent: #ff0a54; 
-            --accent2: #00d9ff; 
-            --text: #ffffff;
-            --success: #2ed573;
+            --bg: #0a0e27; --card: #1a1f3a; --accent: #ff0a54; 
+            --accent2: #00d9ff; --text: #ffffff; --success: #2ed573;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Noto Nastaliq Urdu', serif; 
-            background: var(--bg); color: var(--text);
-            min-height: 100vh; line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Noto Nastaliq Urdu', serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
         .container { max-width: 500px; margin: 0 auto; padding: 15px; }
         
         /* Header */
-        .header { 
-            text-align: center; border-bottom: 3px solid var(--accent); 
-            border-radius: 0 0 30px 30px; margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(255,10,84,0.2);
-            background: var(--card); overflow: hidden;
-        }
-        .header-cover { width: 100%; height: 200px; object-fit: cover; }
-        .header h1 { font-size: 2.5rem; padding: 10px; text-shadow: 0 0 15px rgba(255,10,84,0.6); }
+        .header { text-align: center; border-bottom: 3px solid var(--accent); border-radius: 0 0 30px 30px; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(255,10,84,0.2); background: var(--card); overflow: hidden; }
+        .header-cover { width: 100%; height: 180px; object-fit: cover; }
+        .header h1 { font-size: 2.2rem; padding: 10px; text-shadow: 0 0 15px rgba(255,10,84,0.6); }
 
-        /* Menu Grid */
+        /* Navigation Grid */
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .nav-btn { background: var(--card); border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.2s; }
-        .nav-btn:active { transform: scale(0.95); }
-        .nav-btn img { width: 100%; height: 120px; object-fit: cover; }
-        .nav-btn h3 { padding: 12px; text-align: center; font-size: 1.1rem; }
-
-        /* Content Display */
-        .items-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .card { background: #1a1f3a; padding: 15px 10px; border-radius: 12px; text-align: center; border: 1px solid #3a3f5a; cursor: pointer; }
-        .card.locked { border-style: dashed; border-color: var(--accent); opacity: 0.8; }
-        
-        .btn-back { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-bottom: 15px; cursor: pointer; font-weight: bold; font-family: inherit; }
+        .nav-btn img { width: 100%; height: 110px; object-fit: cover; }
+        .nav-btn h3 { padding: 10px; text-align: center; font-size: 1rem; }
 
         /* Puzzle Styling */
         .puzzle-section { background: linear-gradient(135deg, #1a1f3a 0%, #0a0e27 100%); padding: 20px; border-radius: 20px; text-align: center; border: 1px solid var(--accent2); }
         .ep-box { background: rgba(46, 213, 115, 0.1); border: 2px dashed var(--success); padding: 15px; border-radius: 15px; margin: 15px 0; }
-        .ep-number { font-size: 1.6rem; color: var(--success); font-weight: bold; letter-spacing: 2px; }
-        .timer-circle { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--accent); line-height: 72px; font-size: 28px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; }
+        .ep-number { font-size: 1.5rem; color: var(--success); font-weight: bold; }
+        .timer-circle { width: 85px; height: 85px; border-radius: 50%; border: 5px solid var(--accent); line-height: 75px; font-size: 32px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; background: rgba(0,0,0,0.3); }
+        .btn-back { background: var(--accent); color: #fff; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-bottom: 15px; cursor: pointer; font-family: inherit; }
         
+        /* Winner Display */
         .winner-card { background: linear-gradient(45deg, #ffd700, #ffa500); color: #000; padding: 25px; border-radius: 20px; margin-top: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.5); }
         
-        /* Modals */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-box { background: #1a1f3a; padding: 25px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; border: 2px solid var(--accent); }
         .wa-container { display: flex; gap: 8px; margin: 15px 0; }
         .btn-wa { background: #16a34a; color: #fff; text-decoration: none; padding: 12px; border-radius: 10px; flex: 1; font-size: 0.8rem; font-weight: bold; text-align: center; }
-        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: #fff; border: 1px solid var(--accent2); border-radius: 8px; text-align: center; }
 
         footer { text-align: center; padding: 20px; opacity: 0.5; font-size: 0.8rem; }
     </style>
@@ -75,143 +50,97 @@
             <img src="https://drive.google.com/thumbnail?id=18SlPABsEdm_mndblVL9xHUwCARh6ye7x&sz=w800" class="header-cover">
             <h1>ناولستان</h1>
         </header>
-
         <div class="menu-grid">
             <div class="nav-btn" onclick="openSection('novel')">
                 <img src="https://drive.google.com/thumbnail?id=1A6cQPJd5qacANztlmKyU6a5xiKgNAUuz&sz=w400">
                 <h3>📖 ناول پڑھیں</h3>
             </div>
-            <div class="nav-btn" onclick="openSection('poetry')">
-                <img src="https://drive.google.com/thumbnail?id=1jeO58Sf8-w5fx5SPQZG8LqJjm7QfPHTe&sz=w400">
-                <h3>📜 اردو شاعری</h3>
-            </div>
             <div class="nav-btn" onclick="openSection('puzzle')">
                 <img src="https://drive.google.com/thumbnail?id=11c5Imzwd7sOJ_yEL6gvgDQy85WW0Mvsi&sz=w400">
                 <h3>🎮 پزل گیم</h3>
             </div>
-            <div class="nav-btn" onclick="openSection('about')">
-                <img src="https://drive.google.com/thumbnail?id=1bAfC0S2euvxZQKuawj_nVQGOiK9S41N7&sz=w400">
-                <h3>👤 مصنف</h3>
-            </div>
         </div>
-    </div>
-
-    <div id="content-screen" class="container" style="display:none;">
-        <button class="btn-back" onclick="goHome()">🏠 ہوم پیج</button>
-        <h2 id="section-title" style="text-align:center; margin-bottom:15px;"></h2>
-        <div id="items-list" class="items-grid"></div>
     </div>
 
     <div id="puzzle-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="goHome()">🏠 ہوم پیج</button>
-        
         <div id="puzzle-intro" class="puzzle-section">
             <h2>🎮 پزل چیلنج</h2>
             <div class="ep-box">
-                <p>فیس: <b>50 روپے</b> | انعام: <b>1000 روپے</b></p>
-                <p style="margin-top:10px;">ایزی پیسہ نمبر:</p>
-                <div class="ep-number">03359079528</div>
-                <p>(نام: <b>Yadullah</b>)</p>
+                <p>فیس: <b>50 روپے</b></p>
+                <p>ایزی پیسہ نمبر: <br><b class="ep-number">03359079528</b></p>
+                <p>نام: <b id="display-ep-name"></b></p>
             </div>
-            
-            <button onclick="showPuzzlePaymentDone()" id="btn-done" style="background:var(--success); border:none; color:white; padding:15px; width:100%; border-radius:10px; font-weight:bold; cursor:pointer; font-size:1.1rem;">✅ میں نے پیسے بھیج دیے ہیں</button>
-
-            <div id="puzzle-wa-section" style="display:none; margin-top:20px; border-top:1px solid #444; padding-top:20px;">
-                <p>اب اسکرین شاٹ بھیجیں اور گیم کوڈ لیں:</p>
+            <button onclick="showPuzzleWA()" id="btn-done" style="background:var(--success); color:white; padding:15px; width:100%; border-radius:10px; font-weight:bold; cursor:pointer; border:none;">✅ میں نے پیسے بھیج دیے ہیں</button>
+            <div id="puzzle-wa-section" style="display:none; margin-top:20px;">
+                <p>اسکرین شاٹ بھیجیں اور کوڈ لیں:</p>
                 <div class="wa-container">
                     <a id="p-wa-1" href="#" class="btn-wa" target="_blank">واٹس ایپ 1</a>
                     <a id="p-wa-2" href="#" class="btn-wa" target="_blank">واٹس ایپ 2</a>
                 </div>
-                <button onclick="startPuzzleEntry()" style="background:var(--accent2); border:none; color:black; padding:12px; width:100%; border-radius:10px; margin-top:10px; cursor:pointer; font-weight:bold;">🔑 میرے پاس کوڈ ہے</button>
+                <button onclick="startPuzzleEntry()" style="background:var(--accent2); color:black; padding:12px; width:100%; border-radius:10px; margin-top:10px; font-weight:bold; border:none; cursor:pointer;">🔑 میرے پاس کوڈ ہے</button>
             </div>
         </div>
 
         <div id="puzzle-game" class="puzzle-section" style="display:none;">
-            <div class="timer-circle" id="timer">60</div>
-            <div id="q-content" style="background:rgba(0,0,0,0.3); padding:15px; border-radius:10px; margin-bottom:20px;">لوڈنگ...</div>
+            <div class="timer-circle" id="timer">00</div>
+            <div id="q-content" style="margin-bottom:20px; font-size:1.1rem; background:rgba(0,0,0,0.3); padding:10px; border-radius:10px;"></div>
             <div id="options-box"></div>
         </div>
 
         <div id="winner-screen" class="winner-card" style="display:none; text-align:center;">
-            <h2 style="font-size:2rem;">🎊 مبارک ہو! 🎊</h2>
+            <h2>🎊 مبارک ہو! 🎊</h2>
             <div style="background:#000; color:#fff; padding:15px; border-radius:10px; margin:15px 0;">
                 <p>آپ کی ونر آئی ڈی:</p>
                 <h3 id="winner-id" style="font-size:1.8rem; color:var(--accent2);"></h3>
             </div>
-            <button id="claim-btn" style="background:#000; color:#fff; width:100%; padding:15px; border-radius:10px; margin-top:15px; border:none; cursor:pointer; font-weight:bold; font-family:inherit;">🎁 انعام کلیم کریں</button>
-        </div>
-    </div>
-
-    <div id="pay-modal" class="modal">
-        <div class="modal-box">
-            <h2 id="lock-title">🔒 لاک قسط</h2>
-            <div class="ep-box" style="font-size:0.9rem;">
-                ایزی پیسہ: <b class="ep-number" style="font-size:1.2rem;">03359079528</b><br>
-                (نام: Yadullah)
-            </div>
-            <p id="pay-info" style="margin-bottom:15px;"></p>
-            <div class="wa-container">
-                <a id="wa-1" href="#" class="btn-wa" target="_blank">واٹس ایپ 1</a>
-                <a id="wa-2" href="#" class="btn-wa" target="_blank">واٹس ایپ 2</a>
-            </div>
-            <button onclick="showCodeInput()" style="background:none; border:1px solid var(--accent2); color:var(--accent2); padding:10px; width:100%; border-radius:8px; cursor:pointer;">🔑 کوڈ درج کریں</button>
-            <p onclick="closeModals()" style="margin-top:15px; cursor:pointer; color:var(--accent);">❌ بند کریں</p>
-        </div>
-    </div>
-
-    <div id="code-modal" class="modal">
-        <div class="modal-box">
-            <h2>🔑 کوڈ درج کریں</h2>
-            <input type="text" id="user-code" placeholder="XXXXXX">
-            <button onclick="verifyCode()" style="background:var(--accent2); border:none; width:100%; padding:12px; border-radius:8px; font-weight:bold; cursor:pointer;">✅ تصدیق کریں</button>
-            <p onclick="closeModals()" style="margin-top:15px; cursor:pointer;">❌ منسوخ</p>
+            <p>اس کا اسکرین شاٹ لیں</p>
+            <button id="claim-btn" style="background:#000; color:#fff; width:100%; padding:15px; border-radius:10px; border:none; font-weight:bold; cursor:pointer; margin-top:10px;">🎁 انعام کلیم کریں</button>
         </div>
     </div>
 
     <footer>&copy; 2026 Novelistan - Premium Portal</footer>
 
     <script>
-        const WA_NUMBERS = ['923159226260', '923125540048'];
-        const GAME_START_HOUR = 20; // 8 PM
-        const GAME_END_HOUR = 23;   // 11 PM
+        // ==========================================
+        // ⚙️ کنٹرول پینل (Settings)
+        // ==========================================
+        const MY_EP_NAME = "Yadullah";        // ایزی پیسہ نام
+        const GAME_TIMER = 60;                // ہر سوال کا ٹائم (سیکنڈز)
+        const START_TIME = 20;                // شروع (رات 8 بجے)
+        const END_TIME   = 23;                // ختم (رات 11 بجے)
+        const WA_1 = "923159226260"; 
+        const WA_2 = "923125540048";
+        // ==========================================
 
-        function isGameTime() {
-            const hour = new Date().getHours();
-            return (hour >= GAME_START_HOUR && hour < GAME_END_HOUR);
-        }
+        document.getElementById('display-ep-name').innerText = MY_EP_NAME;
+        let pIndex = 0;
+        let activeTimer;
 
         function goHome() { location.reload(); }
 
         function openSection(mode) {
             if (mode === 'puzzle') {
-                if (!isGameTime()) {
-                    alert("معذرت! پزل گیم صرف رات 8:00 سے 11:00 بجے تک دستیاب ہوتی ہے۔");
+                const hour = new Date().getHours();
+                if (hour < START_TIME || hour >= END_TIME) {
+                    alert(`معذرت! گیم صرف رات ${START_TIME}:00 سے ${END_TIME}:00 کے درمیان کھلتی ہے۔`);
                     return;
                 }
                 document.getElementById('home-screen').style.display = 'none';
                 document.getElementById('puzzle-screen').style.display = 'block';
-            } else {
-                document.getElementById('home-screen').style.display = 'none';
-                document.getElementById('content-screen').style.display = 'block';
-                document.getElementById('section-title').innerText = mode === 'novel' ? "📖 ناول کی اقساط" : "ادبی مواد";
-                // File loading placeholder
-                document.getElementById('items-list').innerHTML = "⏳ فائلیں لوڈ ہو رہی ہیں...";
             }
         }
 
-        function showPuzzlePaymentDone() {
+        function showPuzzleWA() {
             document.getElementById('btn-done').style.display = 'none';
             document.getElementById('puzzle-wa-section').style.display = 'block';
-            const msg = encodeURIComponent("سلام! میں نے پزل فیس 50 روپے بھیج دی ہے۔ نام: Yadullah۔ کوڈ دے دیں۔");
-            document.getElementById('p-wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
-            document.getElementById('p-wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
+            const msg = encodeURIComponent("سلام! میں نے 50 روپے فیس بھیج دی ہے۔ نام: " + MY_EP_NAME + "۔ گیم کوڈ دے دیں۔");
+            document.getElementById('p-wa-1').href = `https://wa.me/${WA_1}?text=${msg}`;
+            document.getElementById('p-wa-2').href = `https://wa.me/${WA_2}?text=${msg}`;
         }
 
-        let pIndex = 0;
-        let gameTimer;
-
-        async function startPuzzleEntry() {
-            const code = prompt("گیم کوڈ درج کریں:");
+        function startPuzzleEntry() {
+            const code = prompt("کوڈ درج کریں:");
             if(code === "123") { // ڈیمو کوڈ
                 document.getElementById('puzzle-intro').style.display = 'none';
                 document.getElementById('puzzle-game').style.display = 'block';
@@ -220,26 +149,24 @@
         }
 
         function runGame() {
-            const qData = [
-                {q: "اردو کس زبان کا لفظ ہے؟", opts: ["ترکی", "فارسی", "عربی"], ans: "ترکی"},
-                {q: "پاکستان کا قومی ترانہ کس نے لکھا؟", opts: ["حفیظ جالندھری", "علامہ اقبال", "فیض"], ans: "حفیظ جالندھری"}
+            const questions = [
+                {q: "اردو زبان کا پہلا ناول کون سا ہے؟", opts: ["مراۃ العروس", "فردوس بریں", "توبۃ النصوح"], ans: "مراۃ العروس"},
+                {q: "پاکستان کا قومی پھول کون سا ہے؟", opts: ["گلاب", "چمبیلی", "سورج مکھی"], ans: "چمبیلی"}
             ];
-            
-            if(pIndex >= qData.length) return showWinner();
-            
-            const q = qData[pIndex];
+            if(pIndex >= questions.length) return showWinner();
+            const q = questions[pIndex];
             document.getElementById('q-content').innerText = q.q;
             document.getElementById('options-box').innerHTML = q.opts.map(o => 
-                `<button class="btn-opt" style="background:#2d2d3a; color:white; width:100%; padding:12px; margin:5px 0; border-radius:10px; border:1px solid #444; cursor:pointer;" onclick="checkAns('${o}', '${q.ans}')">${o}</button>`
+                `<button style="background:#2d2d3a; color:white; width:100%; padding:12px; margin:5px 0; border-radius:10px; border:1px solid #444; cursor:pointer;" onclick="checkAns('${o}', '${q.ans}')">${o}</button>`
             ).join('');
             
-            let timeLeft = 60;
+            let timeLeft = GAME_TIMER;
             document.getElementById('timer').innerText = timeLeft;
-            clearInterval(gameTimer);
-            gameTimer = setInterval(() => {
+            clearInterval(activeTimer);
+            activeTimer = setInterval(() => {
                 timeLeft--;
                 document.getElementById('timer').innerText = timeLeft;
-                if(timeLeft <= 0) { clearInterval(gameTimer); alert("وقت ختم!"); location.reload(); }
+                if(timeLeft <= 0) { clearInterval(activeTimer); alert("وقت ختم!"); location.reload(); }
             }, 1000);
         }
 
@@ -249,19 +176,15 @@
         }
 
         function showWinner() {
-            clearInterval(gameTimer);
+            clearInterval(activeTimer);
             document.getElementById('puzzle-game').style.display = 'none';
             document.getElementById('winner-screen').style.display = 'block';
-            const winID = "NV-" + Math.floor(Math.random()*9000+1000) + "-" + new Date().getDate();
+            const winID = "W-" + Math.floor(Math.random()*9000+1000) + "-" + new Date().getDate();
             document.getElementById('winner-id').innerText = winID;
             document.getElementById('claim-btn').onclick = () => {
-                window.open(`https://wa.me/${WA_NUMBERS[0]}?text=میں جیت گیا! ID: ${winID}`, '_blank');
+                window.open(`https://wa.me/${WA_1}?text=میں جیت گیا! ID: ${winID}`, '_blank');
             }
         }
-
-        function showCodeInput() { closeModals(); document.getElementById('code-modal').classList.add('active'); }
-        function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
-        function verifyCode() { alert("تصدیق ہو رہی ہے..."); location.reload(); }
     </script>
 </body>
 </html>
