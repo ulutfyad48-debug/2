@@ -111,7 +111,7 @@
                 <p>فیس: <b>50 روپے</b> | انعام: <b>1000 روپے</b></p>
                 <p style="margin-top:10px;">ایزی پیسہ نمبر:</p>
                 <div class="ep-number">03359079528</div>
-                <p>(نام: Muhammad Idrees)</p>
+                <p>(نام: <b>Yadullah</b>)</p>
             </div>
             
             <button onclick="showPuzzlePaymentDone()" id="btn-done" style="background:var(--success); border:none; color:white; padding:15px; width:100%; border-radius:10px; font-weight:bold; cursor:pointer; font-size:1.1rem;">✅ میں نے پیسے بھیج دیے ہیں</button>
@@ -134,12 +134,10 @@
 
         <div id="winner-screen" class="winner-card" style="display:none; text-align:center;">
             <h2 style="font-size:2rem;">🎊 مبارک ہو! 🎊</h2>
-            <p>آپ نے پزل مکمل کر لیا ہے</p>
             <div style="background:#000; color:#fff; padding:15px; border-radius:10px; margin:15px 0;">
                 <p>آپ کی ونر آئی ڈی:</p>
                 <h3 id="winner-id" style="font-size:1.8rem; color:var(--accent2);"></h3>
             </div>
-            <p style="font-size:0.9rem;">اسکرین شاٹ لیں اور انعام کے لیے بھیجیں</p>
             <button id="claim-btn" style="background:#000; color:#fff; width:100%; padding:15px; border-radius:10px; margin-top:15px; border:none; cursor:pointer; font-weight:bold; font-family:inherit;">🎁 انعام کلیم کریں</button>
         </div>
     </div>
@@ -148,7 +146,8 @@
         <div class="modal-box">
             <h2 id="lock-title">🔒 لاک قسط</h2>
             <div class="ep-box" style="font-size:0.9rem;">
-                ایزی پیسہ: <b class="ep-number" style="font-size:1.2rem;">03359079528</b>
+                ایزی پیسہ: <b class="ep-number" style="font-size:1.2rem;">03359079528</b><br>
+                (نام: Yadullah)
             </div>
             <p id="pay-info" style="margin-bottom:15px;"></p>
             <div class="wa-container">
@@ -172,146 +171,97 @@
     <footer>&copy; 2026 Novelistan - Premium Portal</footer>
 
     <script>
-        const API_KEY = 'AIzaSyCMppjIJi2_xBi3oLVXN0XjdANMX10xmwE';
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
         const WA_NUMBERS = ['923159226260', '923125540048'];
-        const EP_NUMBER = "03359079528";
-        
-        const FOLDERS = {
-            poetry: '1Bje7U53wmDHhuUrAvj-NaHDAXAfMiG_h',
-            about: '1QHIFfbqFIcpzHKEwEzPlRovHrC4t7wkX',
-            novel: '1AnTGqNqtKQxRHKRXZaGxVy4H7EtlfQjI'
-        };
+        const GAME_START_HOUR = 20; // 8 PM
+        const GAME_END_HOUR = 23;   // 11 PM
 
-        let unlocked = JSON.parse(localStorage.getItem('nov_unlocked')) || [];
-        let currentPkg = "";
-        let puzzles = [];
-        let pIndex = 0;
-        let timer;
+        function isGameTime() {
+            const hour = new Date().getHours();
+            return (hour >= GAME_START_HOUR && hour < GAME_END_HOUR);
+        }
 
         function goHome() { location.reload(); }
 
         function openSection(mode) {
-            document.getElementById('home-screen').style.display = 'none';
-            if(mode === 'puzzle') {
+            if (mode === 'puzzle') {
+                if (!isGameTime()) {
+                    alert("معذرت! پزل گیم صرف رات 8:00 سے 11:00 بجے تک دستیاب ہوتی ہے۔");
+                    return;
+                }
+                document.getElementById('home-screen').style.display = 'none';
                 document.getElementById('puzzle-screen').style.display = 'block';
             } else {
+                document.getElementById('home-screen').style.display = 'none';
                 document.getElementById('content-screen').style.display = 'block';
                 document.getElementById('section-title').innerText = mode === 'novel' ? "📖 ناول کی اقساط" : "ادبی مواد";
-                loadFiles(mode);
+                // File loading placeholder
+                document.getElementById('items-list').innerHTML = "⏳ فائلیں لوڈ ہو رہی ہیں...";
             }
         }
 
-        // --- File Loading Logic ---
-        async function loadFiles(mode) {
-            const list = document.getElementById('items-list');
-            list.innerHTML = "⏳ لوڈ ہو رہا ہے...";
-            try {
-                const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${FOLDERS[mode]}'+in+parents+and+trashed=false&key=${API_KEY}&fields=files(id,name,webViewLink)`);
-                const data = await res.json();
-                if(mode === 'novel') renderNovels();
-                else renderGeneral(data.files);
-            } catch (e) { list.innerHTML = "⚠️ نیٹ ورک ایرر"; }
-        }
-
-        function renderNovels() {
-            const list = document.getElementById('items-list');
-            list.innerHTML = "";
-            for(let i=1; i<=100; i++) {
-                let pkg = i <= 10 ? {id:"FREE", price:0} : (i <= 50 ? {id:"P1", price:50} : {id:"P2", price:100});
-                let isFree = i <= 10 || unlocked.includes(pkg.id);
-                const div = document.createElement('div');
-                div.className = `card ${isFree ? '' : 'locked'}`;
-                div.innerHTML = `قسط ${i}<br><small>${isFree ? '🔓 اوپن' : '🔒 لاک'}</small>`;
-                div.onclick = () => isFree ? alert("لنک اوپن ہو رہا ہے...") : showLock(i, pkg);
-                list.appendChild(div);
-            }
-        }
-
-        function renderGeneral(files) {
-            document.getElementById('items-list').innerHTML = files.map(f => `
-                <div class="card" onclick="window.open('${f.webViewLink}', '_blank')">${f.name.split('.')[0]}</div>
-            `).join('');
-        }
-
-        function showLock(i, pkg) {
-            currentPkg = pkg.id;
-            document.getElementById('pay-info').innerText = `قسط ${i} لاک ہے۔ قیمت: ${pkg.price} روپے۔`;
-            const msg = encodeURIComponent(`سلام! مجھے قسط ${i} خریدنی ہے۔ یہ رہا اسکرین شاٹ۔`);
-            document.getElementById('wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
-            document.getElementById('wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
-            document.getElementById('pay-modal').classList.add('active');
-        }
-
-        // --- Puzzle Logic ---
         function showPuzzlePaymentDone() {
             document.getElementById('btn-done').style.display = 'none';
             document.getElementById('puzzle-wa-section').style.display = 'block';
-            const msg = encodeURIComponent("سلام! میں نے پزل کی فیس 50 روپے بھیج دی ہے۔ یہ رہا اسکرین شاٹ۔ کوڈ دے دیں۔");
+            const msg = encodeURIComponent("سلام! میں نے پزل فیس 50 روپے بھیج دی ہے۔ نام: Yadullah۔ کوڈ دے دیں۔");
             document.getElementById('p-wa-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
             document.getElementById('p-wa-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
         }
 
+        let pIndex = 0;
+        let gameTimer;
+
         async function startPuzzleEntry() {
-            const code = prompt("کوڈ درج کریں:");
-            if(!code) return;
-            // ڈیمو کے لیے کوڈ '123' رکھا ہے، آپ اسکرپٹ سے لنک کر سکتے ہیں
-            document.getElementById('puzzle-intro').style.display = 'none';
-            document.getElementById('puzzle-game').style.display = 'block';
-            loadQuestions();
+            const code = prompt("گیم کوڈ درج کریں:");
+            if(code === "123") { // ڈیمو کوڈ
+                document.getElementById('puzzle-intro').style.display = 'none';
+                document.getElementById('puzzle-game').style.display = 'block';
+                runGame();
+            } else if(code) { alert("غلط کوڈ!"); }
         }
 
-        function loadQuestions() {
+        function runGame() {
             const qData = [
-                {q: "اردو کا پہلا ناول نگار کون ہے؟", opts: ["ڈپٹی نذیر احمد", "پریم چند", "رتن ناتھ سرشار"], ans: "ڈپٹی نذیر احمد"},
-                {q: "مسدس کے ایک بند میں کتنے مصرعے ہوتے ہیں؟", opts: ["4", "6", "8"], ans: "6"}
+                {q: "اردو کس زبان کا لفظ ہے؟", opts: ["ترکی", "فارسی", "عربی"], ans: "ترکی"},
+                {q: "پاکستان کا قومی ترانہ کس نے لکھا؟", opts: ["حفیظ جالندھری", "علامہ اقبال", "فیض"], ans: "حفیظ جالندھری"}
             ];
+            
             if(pIndex >= qData.length) return showWinner();
             
             const q = qData[pIndex];
             document.getElementById('q-content').innerText = q.q;
             document.getElementById('options-box').innerHTML = q.opts.map(o => 
-                `<button class="btn-opt" onclick="checkAns('${o}', '${q.ans}')">${o}</button>`
+                `<button class="btn-opt" style="background:#2d2d3a; color:white; width:100%; padding:12px; margin:5px 0; border-radius:10px; border:1px solid #444; cursor:pointer;" onclick="checkAns('${o}', '${q.ans}')">${o}</button>`
             ).join('');
             
-            let time = 60;
-            document.getElementById('timer').innerText = time;
-            clearInterval(timer);
-            timer = setInterval(() => {
-                time--;
-                document.getElementById('timer').innerText = time;
-                if(time <= 0) { clearInterval(timer); alert("وقت ختم!"); location.reload(); }
+            let timeLeft = 60;
+            document.getElementById('timer').innerText = timeLeft;
+            clearInterval(gameTimer);
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').innerText = timeLeft;
+                if(timeLeft <= 0) { clearInterval(gameTimer); alert("وقت ختم!"); location.reload(); }
             }, 1000);
         }
 
         function checkAns(sel, cor) {
-            if(sel === cor) { pIndex++; loadQuestions(); }
+            if(sel === cor) { pIndex++; runGame(); }
             else { alert("غلط جواب!"); location.reload(); }
         }
 
         function showWinner() {
-            clearInterval(timer);
+            clearInterval(gameTimer);
             document.getElementById('puzzle-game').style.display = 'none';
             document.getElementById('winner-screen').style.display = 'block';
-            const wID = "NV-" + Math.floor(Math.random()*9000+1000) + "-" + new Date().getDate();
-            document.getElementById('winner-id').innerText = wID;
+            const winID = "NV-" + Math.floor(Math.random()*9000+1000) + "-" + new Date().getDate();
+            document.getElementById('winner-id').innerText = winID;
             document.getElementById('claim-btn').onclick = () => {
-                const msg = encodeURIComponent(`میں جیت گیا ہوں! ونر آئی ڈی: ${wID}`);
-                window.open(`https://wa.me/${WA_NUMBERS[0]}?text=${msg}`, '_blank');
+                window.open(`https://wa.me/${WA_NUMBERS[0]}?text=میں جیت گیا! ID: ${winID}`, '_blank');
             }
         }
 
-        // --- Auth Helpers ---
         function showCodeInput() { closeModals(); document.getElementById('code-modal').classList.add('active'); }
         function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
-        function verifyCode() {
-            const code = document.getElementById('user-code').value;
-            if(code.length > 3) {
-                unlocked.push(currentPkg);
-                localStorage.setItem('nov_unlocked', JSON.stringify(unlocked));
-                alert("کامیاب!"); location.reload();
-            } else alert("غلط کوڈ!");
-        }
+        function verifyCode() { alert("تصدیق ہو رہی ہے..."); location.reload(); }
     </script>
 </body>
 </html>
