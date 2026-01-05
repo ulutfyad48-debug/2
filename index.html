@@ -27,7 +27,6 @@
         }
         .container { max-width: 500px; margin: 0 auto; padding: 15px; }
         
-        /* Header */
         .header { 
             text-align: center; 
             border-bottom: 3px solid var(--accent); 
@@ -51,7 +50,6 @@
             cursor: pointer; 
         }
 
-        /* Menu Grid */
         .menu-grid { display: grid; gap: 15px; grid-template-columns: 1fr 1fr; }
         .nav-btn { 
             background: var(--card); 
@@ -65,7 +63,6 @@
         .nav-btn img { width: 100%; height: 160px; object-fit: cover; }
         .nav-btn h3 { padding: 15px; text-align: center; font-size: 1.3rem; }
 
-        /* Items Grid */
         .items-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .card { 
             background: #1a1f3a; 
@@ -77,7 +74,6 @@
         }
         .card.locked { opacity: 0.7; border-style: dashed; border-color: var(--accent); }
 
-        /* Modals */
         .modal { 
             display: none; 
             position: fixed; 
@@ -99,7 +95,6 @@
             border: 2px solid var(--accent); 
         }
         
-        /* Buttons */
         .wa-container { display: flex; gap: 8px; margin: 15px 0; }
         .btn-wa { 
             background: #16a34a; 
@@ -162,7 +157,6 @@
             cursor: pointer;
         }
 
-        /* Puzzle Game Styles */
         .puzzle-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 30px;
@@ -229,7 +223,6 @@
     </style>
 </head>
 <body>
-    <!-- HOME SCREEN -->
     <div id="home-screen" class="container">
         <header class="header">
             <img src="https://drive.google.com/thumbnail?id=18SlPABsEdm_mndblVL9xHUwCARh6ye7x&sz=w800" alt="Cover" class="header-cover" loading="eager">
@@ -238,7 +231,9 @@
                 <p>✨ پریمیم اردو پورٹل ✨</p>
             </div>
         </header>
-="lazy">
+        <div class="menu-grid">
+            <div class="nav-btn" onclick="openSection('novel')">
+                <img src="https://drive.google.com/thumbnail?id=1A6cQPJd5qacANztlmKyU6a5xiKgNAUuz&sz=w400" alt="Novel" loading="lazy">
                 <h3>📖 ناول پڑھیں</h3>
             </div>
             <div class="nav-btn" onclick="openSection('poetry')">
@@ -256,24 +251,20 @@
         </div>
     </div>
 
-    <!-- NOVEL LIST SCREEN -->
     <div id="novel-list-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="location.reload()">🏠 ہوم پیج</button>
         <div id="novels-container"></div>
     </div>
 
-    <!-- CONTENT SCREEN (Poetry, About, Episodes) -->
     <div id="content-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="goBack()">⬅️ واپس</button>
         <h2 id="section-title" style="text-align:center; margin-bottom:20px; color:var(--accent);"></h2>
         <div id="items-list" class="items-grid"></div>
     </div>
 
-    <!-- PUZZLE GAME SCREEN -->
     <div id="puzzle-screen" class="container" style="display:none;">
         <button class="btn-back" onclick="location.reload()">🏠 ہوم پیج</button>
         
-        <!-- Puzzle Info -->
         <div id="puzzle-info" class="puzzle-section">
             <h2 style="font-size: 2rem; margin-bottom: 15px;">🎮 پزل گیم چیلنج</h2>
             <div class="puzzle-info-box">
@@ -307,7 +298,6 @@
             </div>
         </div>
 
-        <!-- Game Play Area -->
         <div id="puzzle-game" style="display:none;">
             <div class="timer-circle" id="timer">60</div>
             <div style="color: #00d2ff; font-size: 16px; margin-bottom: 15px; font-weight: bold;" id="q-number">سوال 1 / 5</div>
@@ -315,7 +305,6 @@
             <div id="options-box"></div>
         </div>
 
-        <!-- Success Screen -->
         <div id="puzzle-success" style="display:none;">
             <div style="background: linear-gradient(135deg, var(--success) 0%, #26de81 100%); color: #000; padding: 25px; border-radius: 15px; font-weight: bold; margin-bottom: 25px;">
                 <h2>🎉 مبارک ہو!</h2>
@@ -326,12 +315,11 @@
             <p style="font-size: 14px; color: #aaa; line-height: 1.6; margin: 15px 0;">
                 📸 اس آئی ڈی کا اسکرین شاٹ لیں<br>
                 📲 Easypaisa: <strong>03359079528</strong><br>
-                📱 واٹس ایپ پر بھیجیں: <strong>03159226260</strong>
+                📱 واٹس ایپ: <strong>03159226260</strong> یا <strong>03125540048</strong>
             </p>
         </div>
     </div>
 
-    <!-- PAYMENT MODAL -->
     <div id="pay-modal" class="modal">
         <div class="modal-box">
             <h2>🔒 لاک</h2>
@@ -345,7 +333,6 @@
         </div>
     </div>
 
-    <!-- CODE INPUT MODAL -->
     <div id="code-modal" class="modal">
         <div class="modal-box">
             <h2>🔑 کوڈ درج کریں</h2>
@@ -357,7 +344,208 @@
 
     <footer>&copy; 2026 Novelistan - Premium Urdu Portal</footer>
 
-    <!-- External JavaScript File -->
-    <script src="script.js"></script>
-</body>
-</html>
+    <script>
+// ========================================
+// ⚠️ ٹائمر تبدیل کرنے کے لیے صرف یہ 2 نمبر بدلیں:
+// ========================================
+const GAME_START_HOUR = 20;  // شروع وقت (20 = رات 8 بجے)
+const GAME_END_HOUR = 23;     // ختم وقت (23 = رات 11 بجے)
+// ========================================
+
+// ===== CONFIGURATION =====
+const FOLDERS = {
+    novelMain: '1PWDGvI9Pxkzma58-BDPZYAxq4Mhw1gdu',
+    poetry: '1Bje7U53wmDHhuUrAvj-NaHDAXAfMiG_h',
+    about: '1QHIFfbqFIcpzHKEwEzPlRovHrC4t7wkX'
+};
+
+const NOVELS = { 
+    'بازگشت عشق': '1AnTGqNqtKQxRHKRXZaGxVy4H7EtlfQjI' 
+};
+
+const API_KEY = 'AIzaSyCMppjIJi2_xBi3oLVXN0XjdANMX10xmwE';
+const WA_NUMBERS = ['923159226260', '923125540048'];
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
+
+// ===== GLOBAL VARIABLES =====
+let unlocked = JSON.parse(localStorage.getItem('nov_unlocked')) || [];
+let currentPkg = "", currentNovel = "", currentScreen = "home";
+const cache = {};
+let puzzles = [];
+let currentIndex = 0;
+let clock = null;
+let secondsLeft = 60;
+let userFullName = "";
+let usedCode = "";
+
+// ===== HELPER FUNCTIONS =====
+function getDailyCode(pkgId) {
+    const d = new Date();
+    return (pkgId + d.getDate() + (d.getMonth() + 1) + "X").toUpperCase();
+}
+
+function getPkg(n) {
+    if (n <= 10) return { id: "FREE", price: 0 };
+    if (n <= 50) return { id: "P1_" + Math.ceil((n-10)/5), price: 50 };
+    if (n <= 80) return { id: "P2_" + Math.ceil((n-50)/5), price: 100 };
+    return { id: "P3_FINAL", price: 300 };
+}
+
+// ===== NAVIGATION =====
+function openSection(mode) {
+    document.getElementById('home-screen').style.display = 'none';
+    
+    if (mode === 'novel') {
+        showNovelList();
+    } else if (mode === 'puzzle') {
+        showPuzzleSection();
+    } else {
+        currentScreen = mode;
+        document.getElementById('content-screen').style.display = 'block';
+        const titles = { poetry: "📜 اردو شاعری", about: "👤 مصنف" };
+        document.getElementById('section-title').innerText = titles[mode] || "";
+        loadFiles(FOLDERS[mode]);
+    }
+}
+
+function goBack() {
+    if (currentScreen === "episodes") openSection('novel');
+    else location.reload();
+}
+
+// ===== NOVEL FUNCTIONS =====
+function showNovelList() {
+    currentScreen = "novelList";
+    document.getElementById('novel-list-screen').style.display = 'block';
+    const container = document.getElementById('novels-container');
+    container.innerHTML = Object.keys(NOVELS).map(name => `
+        <div class="novel-list-card" onclick="openNovel('${name}')">
+            <h3>📖 ${name}</h3>
+            <p>تمام اقساط دستیاب ہیں</p>
+        </div>
+    `).join('');
+}
+
+function openNovel(novelName) {
+    currentScreen = "episodes";
+    currentNovel = novelName;
+    document.getElementById('novel-list-screen').style.display = 'none';
+    document.getElementById('content-screen').style.display = 'block';
+    document.getElementById('section-title').innerText = `📚 ${novelName}`;
+    renderNovel(NOVELS[novelName]);
+}
+
+function renderNovel(folderId) {
+    const list = document.getElementById('items-list');
+    let html = '';
+    
+    for (let i = 1; i <= 100; i++) {
+        let pkg = getPkg(i);
+        const isOpen = i <= 10 || unlocked.includes(pkg.id);
+        html += `
+            <div class="card ${isOpen ? '' : 'locked'}" onclick="${isOpen ? `fetchAndOpen(${i}, '${folderId}')` : `showLock(${i}, '${pkg.id}', ${pkg.price})`}">
+                <span>قسط ${i}<br><small style="color:${isOpen?'#22c55e':'#ff0a54'}">${isOpen?'🔓 اوپن':'🔒 لاک'}</small></span>
+            </div>`;
+    }
+    list.innerHTML = html;
+}
+
+function showLock(i, pkgId, price) {
+    currentPkg = pkgId;
+    document.getElementById('pay-info').innerText = `📦 قسط ${i} پیکیج کا حصہ ہے\n💰 قیمت: ${price} روپے`;
+    const msg = encodeURIComponent(`السلام علیکم! مجھے ${currentNovel} کا پیکیج ${pkgId} خریدنا ہے۔`);
+    document.getElementById('wa-link-1').href = `https://wa.me/${WA_NUMBERS[0]}?text=${msg}`;
+    document.getElementById('wa-link-2').href = `https://wa.me/${WA_NUMBERS[1]}?text=${msg}`;
+    document.getElementById('pay-modal').classList.add('active');
+}
+
+function checkAccess() {
+    if (document.getElementById('user-code').value.trim().toUpperCase() === getDailyCode(currentPkg)) {
+        unlocked.push(currentPkg);
+        localStorage.setItem('nov_unlocked', JSON.stringify(unlocked));
+        alert("✅ ان لاک ہو گیا!");
+        location.reload();
+    } else {
+        alert("❌ غلط کوڈ!");
+    }
+}
+
+async function fetchAndOpen(name, fId) {
+    try {
+        const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${fId}'+in+parents+and+name+contains+'${name}'+and+trashed=false&key=${API_KEY}&fields=files(id,webViewLink)`);
+        const data = await res.json();
+        if (data.files.length) window.open(data.files[0].webViewLink, '_blank');
+        else alert("❌ فائل نہیں ملی!");
+    } catch (e) { alert("⚠️ ایرر!"); }
+}
+
+// ===== FILES LOADING =====
+async function loadFiles(fId) {
+    const list = document.getElementById('items-list');
+    if (cache[fId]) return renderFiles(cache[fId]);
+    list.innerHTML = '<p style="grid-column:1/-1; text-align:center;">⏳ لوڈ ہو رہا ہے...</p>';
+    try {
+        const res = await fetch(`https://www.googleapis.com/drive/v3/files?q='${fId}'+in+parents+and+trashed=false&key=${API_KEY}&fields=files(id,name,webViewLink,mimeType)&pageSize=40`);
+        const data = await res.json();
+        cache[fId] = data.files;
+        renderFiles(data.files);
+    } catch (e) { list.innerHTML = '<p>⚠️ نیٹ ورک ایرر</p>'; }
+}
+
+function renderFiles(files) {
+    const list = document.getElementById('items-list');
+    list.innerHTML = files.map(f => `
+        <div class="card" onclick="window.open('${f.mimeType.includes('image') ? `https://drive.google.com/uc?export=view&id=${f.id}` : f.webViewLink}', '_blank')">
+            <span>${f.name.split('.')[0]}</span>
+        </div>
+    `).join('');
+}
+
+// ===== MODALS =====
+function closeModals() {
+    document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+}
+
+function showCodeInput() {
+    closeModals();
+    document.getElementById('code-modal').classList.add('active');
+}
+
+// ===== PUZZLE GAME =====
+function showPuzzleSection() {
+    const now = new Date();
+    const hour = now.getHours();
+    const isGameTime = (hour >= GAME_START_HOUR && hour < GAME_END_HOUR);
+    
+    if (!isGameTime) {
+        alert(`⏰ گیم کا وقت:\n${GAME_START_HOUR}:00 سے ${GAME_END_HOUR}:00 تک\n\nابھی وقت: ${now.toLocaleTimeString('ur-PK', {hour: '2-digit', minute: '2-digit'})}`);
+        return;
+    }
+    
+    currentScreen = "puzzle";
+    document.getElementById('puzzle-screen').style.display = 'block';
+    document.getElementById('puzzle-info').style.display = 'block';
+    document.getElementById('puzzle-game').style.display = 'none';
+    document.getElementById('puzzle-success').style.display = 'none';
+}
+
+function contactForPuzzle() {
+    const message = encodeURIComponent(`السلام علیکم! 🎮\n\nمیں پزل گیم کھیلنا چاہتا/چاہتی ہوں۔\n\n💰 فیس: 50 روپے\n🏆 انعام: 1000 روپے\n📲 Easypaisa: 03359079528\n\nبراہ کرم کوڈ بھیجیں۔`);
+    
+    const choice = confirm(`کس نمبر پر رابطہ کریں؟\n\nOK = ${WA_NUMBERS[0]}\nCancel = ${WA_NUMBERS[1]}`);
+    const selectedNumber = choice ? WA_NUMBERS[0] : WA_NUMBERS[1];
+    window.open(`https://wa.me/${selectedNumber}?text=${message}`, '_blank');
+}
+
+async function showPuzzleCodeInput() {
+    const code = prompt("🔑 اپنا Puzzle Game کوڈ درج کریں:");
+    
+    if (!code || code.trim() === "") {
+        alert("❌ کوڈ درج کریں!");
+        return;
+    }
+
+    const enteredCode = code.trim().toUpperCase();
+
+    try {
+        const response = await fetch(`${SCRIPT_URL}?action=verifyCode&code=${encodeURIComponent(enteredCode)}`);
