@@ -1,3 +1,10 @@
+// ========================================
+// ⚠️ ٹائمر تبدیل کرنے کے لیے صرف یہ 2 نمبر بدلیں:
+// ========================================
+const GAME_START_HOUR = 20;  // شروع وقت (مثال: 20 = رات 8 بجے)
+const GAME_END_HOUR = 23;     // ختم وقت (مثال: 23 = رات 11 بجے)
+// ========================================
+
 // ===== CONFIGURATION =====
 const FOLDERS = {
     novelMain: '1PWDGvI9Pxkzma58-BDPZYAxq4Mhw1gdu',
@@ -10,17 +17,13 @@ const NOVELS = {
 };
 
 const API_KEY = 'AIzaSyCMppjIJi2_xBi3oLVXN0XjdANMX10xmwE';
-const WA_NUMBERS = ['923159226260', '923359079528'];
-
-// ⚠️ IMPORTANT: Replace this URL with your Google Apps Script deployment URL
+const WA_NUMBERS = ['923159226260', '923125540048'];
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
 
 // ===== GLOBAL VARIABLES =====
 let unlocked = JSON.parse(localStorage.getItem('nov_unlocked')) || [];
 let currentPkg = "", currentNovel = "", currentScreen = "home";
 const cache = {};
-
-// Puzzle Game Variables
 let puzzles = [];
 let currentIndex = 0;
 let clock = null;
@@ -183,10 +186,10 @@ function showCodeInput() {
 function showPuzzleSection() {
     const now = new Date();
     const hour = now.getHours();
-    const isGameTime = (hour >= 20 && hour < 23); // 8 PM to 11 PM
+    const isGameTime = (hour >= GAME_START_HOUR && hour < GAME_END_HOUR);
     
     if (!isGameTime) {
-        alert(`⏰ گیم کا وقت:\nشام 8 بجے سے رات 11 بجے تک\n\nابھی وقت: ${now.toLocaleTimeString('ur-PK', {hour: '2-digit', minute: '2-digit'})}`);
+        alert(`⏰ گیم کا وقت:\n${GAME_START_HOUR}:00 سے ${GAME_END_HOUR}:00 تک\n\nابھی وقت: ${now.toLocaleTimeString('ur-PK', {hour: '2-digit', minute: '2-digit'})}`);
         return;
     }
     
