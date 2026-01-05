@@ -3,224 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>ناولستان - پریمیم پورٹل</title>
+    <title>ڈیزل پزلز - ہوم</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@800&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --bg: #0a0e27; --card: #1a1f3a; --accent: #ff0a54; 
+            --bg: #05081a; --card: #121833; --accent: #ff0a54; 
             --accent2: #00d9ff; --text: #ffffff; --success: #2ed573;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Nastaliq Urdu', serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { font-family: 'Noto Nastaliq Urdu', serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
         .container { max-width: 500px; margin: 0 auto; padding: 15px; }
-        
-        /* Header */
-        .header { text-align: center; border-bottom: 3px solid var(--accent); border-radius: 0 0 30px 30px; margin-bottom: 25px; background: var(--card); overflow: hidden; }
-        .header-cover { width: 100%; height: 200px; object-fit: cover; }
-        .header h1 { font-size: 2.5rem; padding: 15px; }
-
-        /* Grid */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .nav-btn { background: var(--card); border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; text-align: center; overflow: hidden; }
-        .nav-btn img { width: 100%; height: 110px; object-fit: cover; }
-        .nav-btn h3 { padding: 10px; font-size: 1rem; }
-
-        /* Game UI */
-        .puzzle-section { background: var(--card); padding: 20px; border-radius: 20px; text-align: center; border: 2px solid var(--accent2); }
-        .timer-circle { width: 90px; height: 90px; border-radius: 50%; border: 4px solid var(--accent); line-height: 82px; font-size: 32px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; }
-        .timer-circle.warning { color: yellow; border-color: yellow; }
-        .q-text { font-size: 1.1rem; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px; border-right: 4px solid var(--accent2); }
-        .btn { border: none; padding: 12px; border-radius: 10px; cursor: pointer; font-family: inherit; font-weight: bold; width: 100%; margin-top: 10px; }
+        .hero-section { text-align: center; padding: 40px 10px; animation: fadeIn 1.5s ease-in; }
+        .site-title { font-family: 'Poppins', sans-serif; font-size: 2.8rem; text-transform: uppercase; background: linear-gradient(to right, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
+        .main-image-container { width: 100%; border-radius: 30px; overflow: hidden; border: 3px solid var(--accent2); box-shadow: 0 0 30px rgba(0, 217, 255, 0.2); margin-bottom: 30px; }
+        .main-image-container img { width: 100%; display: block; }
+        .start-btn { background: linear-gradient(45deg, var(--accent), #ff477e); color: white; font-size: 1.5rem; padding: 18px 40px; border-radius: 50px; border: none; cursor: pointer; width: 85%; font-weight: bold; box-shadow: 0 10px 20px rgba(255, 10, 84, 0.4); text-decoration: none; display: inline-block; }
+        .puzzle-section { background: var(--card); padding: 25px; border-radius: 25px; text-align: center; border: 2px solid var(--accent2); margin-top: 20px; }
+        .timer-circle { width: 85px; height: 85px; border-radius: 50%; border: 4px solid var(--accent); line-height: 77px; font-size: 30px; margin: 0 auto 15px; color: var(--accent); font-weight: bold; }
+        .q-text { font-size: 1.2rem; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 5px solid var(--accent2); }
+        .btn { border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: bold; width: 100%; margin-top: 10px; font-size: 1.1rem; }
         .btn-wa { background: #16a34a; color: white; text-decoration: none; display: inline-block; width: 48%; }
-        .btn-opt { background: #2d2d3a; color: white; border: 1px solid #444; margin: 5px 0; }
-        
-        /* Success Screen */
-        #success-section { display: none; background: #000; padding: 30px; border-radius: 20px; border: 2px solid var(--success); }
-        .track-box { background: var(--success); color: #000; padding: 15px; font-size: 1.5rem; font-weight: bold; border-radius: 10px; margin: 15px 0; }
-
-        /* Modals */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-box { background: #1a1f3a; padding: 25px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; border: 2px solid var(--accent); }
-        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; color: #fff; border: 1px solid var(--accent2); border-radius: 8px; text-align: center; }
-
-        .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(255,255,255,.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-opt { background: #1f2647; color: white; border: 1px solid #3d4675; margin: 8px 0; }
+        .track-box { background: var(--success); color: #000; padding: 15px; font-size: 1.6rem; font-weight: bold; border-radius: 12px; margin: 15px 0; }
+        .btn-whatsapp-send { background: #25D366; color: white; text-decoration: none; display: block; padding: 18px; border-radius: 12px; margin-top: 15px; font-size: 1.2rem; font-weight: bold; }
+        input { width: 100%; padding: 15px; margin: 15px 0; background: #000; color: #fff; border: 1px solid var(--accent2); border-radius: 10px; text-align: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div id="home-screen" class="container">
-        <header class="header">
-            <img src="https://drive.google.com/thumbnail?id=18SlPABsEdm_mndblVL9xHUwCARh6ye7x&sz=w800" class="header-cover">
-            <h1>ناولستان</h1>
-        </header>
-
-        <div class="menu-grid">
-            <div class="nav-btn" onclick="location.reload()"><h3>📖 ناول</h3></div>
-            <div class="nav-btn" onclick="openGame()">
-                <img src="https://drive.google.com/thumbnail?id=11c5Imzwd7sOJ_yEL6gvgDQy85WW0Mvsi&sz=w400">
-                <h3>🎮 پزل گیم</h3>
+        <div class="hero-section">
+            <h1 class="site-title">DIESEL PUZZLES</h1>
+            <div class="main-image-container">
+                <img src="https://drive.google.com/thumbnail?id=11c5Imzwd7sOJ_yEL6gvgDQy85WW0Mvsi&sz=w800" alt="Puzzle">
             </div>
+            <button class="start-btn" onclick="openGame()">🎮 گیم شروع کریں</button>
         </div>
     </div>
 
     <div id="puzzle-screen" class="container" style="display:none;">
-        <button class="btn" style="background:var(--accent)" onclick="location.reload()">🏠 ہوم پیج</button>
+        <button class="btn" style="background:var(--accent); margin-bottom: 20px;" onclick="location.reload()">🏠 ہوم پیج</button>
         
-        <div id="auth-section" class="puzzle-section" style="margin-top:20px;">
-            <h2>🎮 پزل چیلنج</h2>
+        <div id="auth-section" class="puzzle-section">
+            <h2 style="margin-bottom: 10px;">🔐 گیم لاک ہے</h2>
             <p>فیس: 50 روپے | ایزی پیسہ: 03359079528</p>
-            <div style="margin: 15px 0;">
-                <a href="https://wa.me/923159226260" class="btn btn-wa">واٹس ایپ 1</a>
-                <a href="https://wa.me/923125540048" class="btn btn-wa">واٹس ایپ 2</a>
+            <div style="margin: 20px 0;">
+                <a href="https://wa.me/923159226260?text=سلام!%20میں%20نے%20آپ%20کو%20ایزی%20پیسہ%20کر%20دیا%20ہے،%20آپ%20مجھے%20کوڈ%20بھیجیں،%20میں%20آپ%20کو%20اسکرین%20شاٹ%20بھیجتا%20ہوں۔" target="_blank" class="btn btn-wa">واٹس ایپ 1</a>
+                <a href="https://wa.me/923125540048?text=سلام!%20میں%20نے%20آپ%20کو%20ایزی%20پیسہ%20کر%20دیا%20ہے،%20آپ%20مجھے%20کوڈ%20بھیجیں،%20میں%20آپ%20کو%20اسکرین%20شاٹ%20بھیجتا%20ہوں۔" target="_blank" class="btn btn-wa">واٹس ایپ 2</a>
             </div>
-            <input type="text" id="accessCode" placeholder="اپنا گیم کوڈ یہاں لکھیں">
-            <button class="btn" style="background:var(--accent2); color:black;" onclick="verifyCode()">🎯 گیم شروع کریں</button>
+            <input type="text" id="accessCode" placeholder="یہاں کوڈ لکھیں...">
+            <button class="btn" style="background:var(--accent2); color:black;" onclick="verifyCode()">🎯 تصدیق کریں</button>
         </div>
 
-        <div id="game-section" class="puzzle-section" style="display:none; margin-top:20px;">
-            <div id="q-number" style="margin-bottom:10px; color:var(--accent2)">سوال 1 / 5</div>
+        <div id="game-section" class="puzzle-section" style="display:none;">
+            <div id="q-number" style="margin-bottom:10px; color:var(--accent2); font-weight: bold;">سوال 1 / 5</div>
             <div class="timer-circle" id="timer">60</div>
             <div id="q-content" class="q-text">لوڈنگ...</div>
             <div id="options-box"></div>
         </div>
 
-        <div id="success-section" class="puzzle-section" style="margin-top:20px;">
-            <h2 style="color:var(--success)">✨ مبارک ہو! ✨</h2>
-            <p>آپ نے تمام سوالات کے صحیح جواب دے دیئے ہیں۔</p>
-            <p style="margin-top:10px;">آپ کی ٹریکنگ آئی ڈی یہ ہے:</p>
+        <div id="success-section" class="puzzle-section" style="display:none;">
+            <h2 style="color:var(--success); font-size: 2rem;">✨ جیت گئے! ✨</h2>
+            <p style="margin-top: 10px;">آپ کی ٹریکنگ آئی ڈی یہ ہے:</p>
             <div class="track-box" id="tracking-id">---</div>
-            <p style="font-size:0.8rem;">اس کا اسکرین شاٹ لیں اور انعام کے لیے واٹس ایپ کریں۔</p>
-            <button class="btn" style="background:var(--accent2); color:black;" onclick="location.reload()">ختم کریں</button>
+            
+            <a id="wa-share-btn" href="#" target="_blank" class="btn-whatsapp-send">📲 واٹس ایپ پر انعام مانگیں</a>
+            
+            <button class="btn" style="background:rgba(255,255,255,0.1); color:white; margin-top: 15px;" onclick="location.reload()">ختم کریں</button>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
-        const START_HOUR = 11; // 11 AM
-        const END_HOUR = 23;   // 11 PM
+        const START_HOUR = 11; const END_HOUR = 23;   
+        let puzzles = []; let currentIndex = 0; let clock = null; let secondsLeft = 60; let userFullName = ""; let usedCode = "";
 
-        let puzzles = [];
-        let currentIndex = 0;
-        let clock = null;
-        let secondsLeft = 60;
-        let userFullName = "";
-        let usedCode = "";
-
-        // گیم سیکشن کھولنا اور ٹائم چیک کرنا
         function openGame() {
-            const now = new Date();
-            const hour = now.getHours();
+            const now = new Date(); const hour = now.getHours();
             if (hour >= START_HOUR && hour < END_HOUR) {
                 document.getElementById('home-screen').style.display = 'none';
                 document.getElementById('puzzle-screen').style.display = 'block';
-            } else {
-                alert("گیم کا وقت صبح 11 سے رات 11 بجے تک ہے۔");
-            }
+            } else { alert("گیم کا وقت صبح 11 سے رات 11 بجے تک ہے۔"); }
         }
 
-        [span_0](start_span)// کوڈ کی تصدیق[span_0](end_span)
         async function verifyCode() {
             const code = document.getElementById('accessCode').value.trim();
             if (!code) return alert("براہ کرم کوڈ درج کریں!");
-
-            const btn = event.target;
-            btn.disabled = true;
-            btn.innerHTML = 'تصدیق ہو رہی ہے...';
-
+            const btn = event.target; btn.disabled = true; btn.innerHTML = 'چیک ہو رہا ہے...';
             try {
                 const res = await fetch(`${SCRIPT_URL}?action=verifyCode&code=${encodeURIComponent(code)}`);
                 const result = await res.text();
-
                 if (result === "SUCCESS") {
                     usedCode = code;
-                    userFullName = prompt("اپنا مکمل نام درج کریں:");
+                    userFullName = prompt("اپنا مکمل نام لکھیں:");
                     if (!userFullName) { location.reload(); return; }
-                    
                     document.getElementById('auth-section').style.display = 'none';
                     document.getElementById('game-section').style.display = 'block';
                     loadPuzzles();
-                } else {
-                    alert("کوڈ غلط ہے یا استعمال ہو چکا ہے!");
-                    btn.disabled = false;
-                    btn.innerHTML = '🎯 گیم شروع کریں';
-                }
+                } else { alert("کوڈ غلط ہے!"); btn.disabled = false; btn.innerHTML = '🎯 تصدیق کریں'; }
             } catch (e) { alert("نیٹ ورک ایرر!"); btn.disabled = false; }
         }
 
-        [span_1](start_span)// سوالات سرور سے لینا[span_1](end_span)
         async function loadPuzzles() {
-            try {
-                const res = await fetch(`${SCRIPT_URL}?action=getPuzzles`);
-                puzzles = await res.json();
-                displayQuestion();
-            } catch (e) { alert("سوالات لوڈ نہیں ہو سکے!"); }
+            try { const res = await fetch(`${SCRIPT_URL}?action=getPuzzles`); puzzles = await res.json(); displayQuestion(); } 
+            catch (e) { alert("سوالات لوڈ نہیں ہو سکے!"); }
         }
 
-        [span_2](start_span)// سوال دکھانا[span_2](end_span)
         function displayQuestion() {
             if (currentIndex >= 5) return finishGame();
             if (clock) clearInterval(clock);
-
-            secondsLeft = 60;
-            const timerEl = document.getElementById('timer');
-            timerEl.innerText = secondsLeft;
-            timerEl.classList.remove('warning');
-
+            secondsLeft = 60; const timerEl = document.getElementById('timer'); timerEl.innerText = secondsLeft;
             const puzzle = puzzles[currentIndex];
             document.getElementById('q-number').innerText = `سوال ${currentIndex + 1} / 5`;
             document.getElementById('q-content').innerText = puzzle.q;
-
             let html = "";
             puzzle.opts.forEach(opt => {
                 const safeOpt = opt.replace(/'/g, "\\'");
                 html += `<button class="btn btn-opt" onclick="checkAnswer('${safeOpt}')">${opt}</button>`;
             });
             document.getElementById('options-box').innerHTML = html;
-
             clock = setInterval(() => {
-                secondsLeft--;
-                timerEl.innerText = secondsLeft;
-                if (secondsLeft <= 10) timerEl.classList.add('warning');
-                if (secondsLeft <= 0) {
-                    clearInterval(clock);
-                    alert("وقت ختم!");
-                    location.reload();
-                }
+                secondsLeft--; timerEl.innerText = secondsLeft;
+                if (secondsLeft <= 0) { clearInterval(clock); alert("وقت ختم!"); location.reload(); }
             }, 1000);
         }
 
-        [span_3](start_span)// جواب چیک کرنا[span_3](end_span)
         function checkAnswer(selected) {
-            const correct = puzzles[currentIndex].ans;
-            if (selected === correct) {
-                currentIndex++;
-                displayQuestion();
-            } else {
-                alert("❌ غلط جواب! گیم ختم۔");
-                location.reload();
-            }
+            if (selected === puzzles[currentIndex].ans) { currentIndex++; displayQuestion(); } 
+            else { alert("❌ غلط جواب!"); location.reload(); }
         }
 
-        [span_4](start_span)// گیم مکمل اور ٹریکنگ آئی ڈی لینا[span_4](end_span)
         async function finishGame() {
             clearInterval(clock);
             document.getElementById('game-section').innerHTML = "<h3>ڈیٹا محفوظ ہو رہا ہے...</h3>";
-            
             try {
                 const res = await fetch(`${SCRIPT_URL}?action=saveWinner&name=${encodeURIComponent(userFullName)}&code=${encodeURIComponent(usedCode)}`);
                 const trackingId = await res.text();
-                
                 document.getElementById('game-section').style.display = 'none';
                 document.getElementById('tracking-id').innerText = trackingId;
+                
+                // --- جیتنے کے بعد کا آٹو میسج ---
+                const winMsg = `سلام! میں گیم جیت گیا ہوں۔\nنام: ${userFullName}\nID: ${trackingId}`;
+                document.getElementById('wa-share-btn').href = `https://wa.me/923159226260?text=${encodeURIComponent(winMsg)}`;
+                
                 document.getElementById('success-section').style.display = 'block';
-            } catch (e) { 
-                alert("ڈیٹا سیو کرنے میں مسئلہ ہوا، اسکرین شاٹ لیں۔"); 
-            }
+            } catch (e) { alert("آئی ڈی نہیں بنی، اسکرین شاٹ لیں!"); }
         }
     </script>
 </body>
