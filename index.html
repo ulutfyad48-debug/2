@@ -78,15 +78,29 @@
 
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
-        const START_HOUR = 11; const END_HOUR = 23;   
+
+        // ==========================================
+        // 🕒 وقت کی سیٹنگ (یہاں سے تبدیلی کریں)
+        // ==========================================
+        // نوٹ: 24 گھنٹوں کا فارمیٹ استعمال کریں۔ (مثلاً رات 8 بجے = 20)
+        const START_HOUR = 20; // شام 8 بجے گیم اوپن ہوگی
+        const END_HOUR = 23;   // رات 11 بجے گیم بند ہو جائے گی
+        // ==========================================
+
         let puzzles = []; let currentIndex = 0; let clock = null; let secondsLeft = 60; let userFullName = ""; let usedCode = "";
 
         function openGame() {
-            const now = new Date(); const hour = now.getHours();
+            const now = new Date(); 
+            const hour = now.getHours();
+
+            // چیک کریں کہ کیا موجودہ وقت سیٹ کیے گئے وقت کے درمیان ہے
             if (hour >= START_HOUR && hour < END_HOUR) {
                 document.getElementById('home-screen').style.display = 'none';
                 document.getElementById('puzzle-screen').style.display = 'block';
-            } else { alert("گیم کا وقت صبح 11 سے رات 11 بجے تک ہے۔"); }
+            } else { 
+                // اگر وقت نہیں ہوا تو یہ پیغام آئے گا
+                alert("گیم کا وقت شام 08:00 سے رات 11:00 بجے تک ہے۔"); 
+            }
         }
 
         async function verifyCode() {
@@ -145,7 +159,6 @@
                 document.getElementById('game-section').style.display = 'none';
                 document.getElementById('tracking-id').innerText = trackingId;
                 
-                // --- جیتنے کے بعد کا آٹو میسج ---
                 const winMsg = `سلام! میں گیم جیت گیا ہوں۔\nنام: ${userFullName}\nID: ${trackingId}`;
                 document.getElementById('wa-share-btn').href = `https://wa.me/923159226260?text=${encodeURIComponent(winMsg)}`;
                 
