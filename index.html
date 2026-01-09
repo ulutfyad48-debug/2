@@ -22,7 +22,6 @@
         .main-image-container { width: 100%; border-radius: 25px; overflow: hidden; border: 3px solid var(--accent2); box-shadow: 0 0 25px rgba(0, 217, 255, 0.2); margin-bottom: 20px; }
         .main-image-container img { width: 100%; display: block; }
 
-        /* Rules Box */
         .rules-box { background: rgba(255, 10, 84, 0.1); border: 1px solid var(--accent); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: right; }
         .rules-box h3 { color: var(--accent); margin-bottom: 8px; font-size: 1.1rem; }
         .rules-box ul { list-style: none; font-size: 0.85rem; }
@@ -41,7 +40,7 @@
         
         .q-text { font-size: 1.2rem; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-right: 5px solid var(--accent2); text-align: right; }
         .btn { border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-family: inherit; font-weight: bold; width: 100%; margin-top: 10px; font-size: 1.1rem; }
-        .btn-wa { background: #16a34a; color: white; text-decoration: none; display: inline-block; width: 48%; line-height: 45px; text-align: center; font-size: 0.9rem; border-radius: 10px; }
+        .btn-wa { background: #16a34a; color: white; text-decoration: none; display: inline-block; width: 48%; line-height: 45px; text-align: center; font-size: 0.9rem; border-radius: 10px; font-weight: bold; }
         .btn-opt { background: #1f2647; color: white; border: 1px solid #3d4675; margin: 8px 0; text-align: right; padding-right: 20px; }
         
         .track-box { background: var(--success); color: #000; padding: 15px; font-size: 1.6rem; font-weight: bold; border-radius: 12px; margin: 15px 0; border: 2px solid #fff; }
@@ -99,8 +98,12 @@
         <div id="success-section" class="puzzle-section" style="display:none;">
             <h2 style="color:var(--success); font-size: 2rem;">✨ ویلڈن! ✨</h2>
             <div class="track-box" id="tracking-id">---</div>
-            <p style="color: var(--accent2); margin-bottom: 15px;">آپ کا انعام: 300 روپے</p>
-            <a id="wa-share-btn" href="#" target="_blank" class="btn" style="background:#25D366; color:white; text-decoration:none; display:block;">📲 انعام وصول کریں</a>
+            <p style="color: var(--accent2); margin-bottom: 15px; font-weight: bold;">آپ کا انعام: 300 روپے</p>
+            <p style="font-size: 0.9rem; margin-bottom: 10px;">انعام وصول کرنے کے لیے کسی بھی نمبر پر میسج کریں:</p>
+            <div style="display: flex; justify-content: space-between;">
+                <a id="wa-share-btn1" href="#" target="_blank" class="btn btn-wa">انعام وصول کریں 1</a>
+                <a id="wa-share-btn2" href="#" target="_blank" class="btn btn-wa">انعام وصول کریں 2</a>
+            </div>
         </div>
     </div>
 
@@ -108,9 +111,9 @@
         // ==========================================
         // ⚙️ اہم سیٹنگز (یہاں سے تبدیلی کریں)
         // ==========================================
-        const START_HOUR = 20; // دوپہر 12 بجے شروع (24 گھنٹے کے فارمیٹ میں)
-        const END_HOUR = 23;   // رات 12 بجے ختم
-        const QUESTION_TIME = 90; // ہر سوال کے لیے سیکنڈز
+        const START_HOUR = 12; // دوپہر 12 بجے شروع
+        const END_HOUR = 24;   // رات 12 بجے ختم
+        const QUESTION_TIME = 90; // ہر سوال کے لیے 90 سیکنڈز
         // ==========================================
 
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwk4hNSimgU__x1PHwrjJZe_596-2Ay-y6uTHamx7zYlSZP1MGg_dQXNtw73_f2VIKh/exec";
@@ -201,7 +204,10 @@
                 document.getElementById('game-section').style.display = 'none';
                 document.getElementById('tracking-id').innerText = trackingId;
                 const winMsg = `سلام! میں نے پزل مکمل کر لیا ہے۔\nآئی ڈی: ${trackingId}\nنام: ${userFullName}\nانعام: 300 روپے`;
-                document.getElementById('wa-share-btn').href = `https://wa.me/923159226260?text=${encodeURIComponent(winMsg)}`;
+                
+                document.getElementById('wa-share-btn1').href = `https://wa.me/923159226260?text=${encodeURIComponent(winMsg)}`;
+                document.getElementById('wa-share-btn2').href = `https://wa.me/923125540048?text=${encodeURIComponent(winMsg)}`;
+                
                 document.getElementById('success-section').style.display = 'block';
             } catch (e) { alert("ڈیٹا محفوظ کرنے میں مسئلہ آیا۔"); }
         }
