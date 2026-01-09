@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ulutfyad48-debug.github.io/2/sitemap.xml
